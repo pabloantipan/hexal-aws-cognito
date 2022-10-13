@@ -7,7 +7,7 @@ export default class ProductAdmin extends Component {
 
   state = {
     newproduct: { 
-      "productname": "", 
+      "productName": "", 
       "id": ""
     },
     products: []
@@ -19,11 +19,11 @@ export default class ProductAdmin extends Component {
     try {
       const params = {
         "id": id,
-        "productname": this.state.newproduct.productname
+        "productName": this.state.newproduct.productName
       };
       await axios.post(`${config.api.invokeUrl}/products/${id}`, params);
       this.setState({ products: [...this.state.products, this.state.newproduct] });
-      this.setState({ newproduct: { "productname": "", "id": "" }});
+      this.setState({ newproduct: { "productName": "", "id": "" }});
     }catch (err) {
       console.log(`An error has occurred: ${err}`);
     }
@@ -34,12 +34,12 @@ export default class ProductAdmin extends Component {
     try {
       const params = {
         "id": id,
-        "productname": name
+        "productName": name
       };
       await axios.patch(`${config.api.invokeUrl}/products/${id}`, params);
       const productToUpdate = [...this.state.products].find(product => product.id === id);
       const updatedProducts = [...this.state.products].filter(product => product.id !== id);
-      productToUpdate.productname = name;
+      productToUpdate.productName = name;
       updatedProducts.push(productToUpdate);
       this.setState({products: updatedProducts});
     }catch (err) {
@@ -71,7 +71,7 @@ export default class ProductAdmin extends Component {
     }
   }
 
-  onAddProductNameChange = event => this.setState({ newproduct: { ...this.state.newproduct, "productname": event.target.value } });
+  onAddproductNameChange = event => this.setState({ newproduct: { ...this.state.newproduct, "productName": event.target.value } });
   onAddProductIdChange = event => this.setState({ newproduct: { ...this.state.newproduct, "id": event.target.value } });
 
   componentDidMount = () => {
@@ -95,8 +95,8 @@ export default class ProductAdmin extends Component {
                         className="input is-medium"
                         type="text" 
                         placeholder="Enter name"
-                        value={this.state.newproduct.productname}
-                        onChange={this.onAddProductNameChange}
+                        value={this.state.newproduct.productName}
+                        onChange={this.onAddproductNameChange}
                       />
                     </div>
                     <div className="control">
@@ -125,7 +125,7 @@ export default class ProductAdmin extends Component {
                           isAdmin={true}
                           handleUpdateProduct={this.handleUpdateProduct}
                           handleDeleteProduct={this.handleDeleteProduct} 
-                          name={product.productname} 
+                          name={product.productName} 
                           id={product.id}
                           key={product.id}
                         />)
