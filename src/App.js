@@ -49,23 +49,68 @@ class App extends Component {
                 path="/"
                 render={(props) => <Home {...props} auth={authProps} />}
               />
-              <Route exact path="/products" component={Products} />
-              <Route exact path="/admin" component={ProductAdmin} />
-              <Route exact path="/login" component={LogIn} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/forgotpassword" component={ForgotPassword} />
+              <Route
+                exact
+                path="/products"
+                component={Products}
+                render={(props) => <Products {...props} auth={authProps} />}
+              />
+              <Route
+                exact
+                path="/admin"
+                component={ProductAdmin}
+                render={(props) => <ProductAdmin {...props} auth={authProps} />}
+              />
+              <Route
+                exact
+                path="/login"
+                component={LogIn}
+                render={(props) => <LogIn {...props} auth={authProps} />}
+              />
+              <Route
+                exact
+                path="/register"
+                component={Register}
+                render={(props) => <Register {...props} auth={authProps} />}
+              />
+              <Route
+                exact
+                path="/forgotpassword"
+                component={ForgotPassword}
+                render={(props) => (
+                  <ForgotPassword {...props} auth={authProps} />
+                )}
+              />
               <Route
                 exact
                 path="/forgotpasswordverification"
                 component={ForgotPasswordVerification}
+                render={(props) => (
+                  <ForgotPasswordVerification {...props} auth={authProps} />
+                )}
               />
-              <Route exact path="/changepassword" component={ChangePassword} />
+              <Route
+                exact
+                path="/changepassword"
+                component={ChangePassword}
+                render={(props) => (
+                  <ChangePassword {...props} auth={authProps} />
+                )}
+              />
               <Route
                 exact
                 path="/changepasswordconfirmation"
                 component={ChangePasswordConfirm}
+                render={(props) => (
+                  <ChangePasswordConfirm {...props} auth={authProps} />
+                )}
               />
-              <Route exact path="/welcome" component={Welcome} />
+              <Route
+                exact
+                path="/welcome"
+                component={Welcome}
+                render={(props) => <Welcome {...props} auth={authProps} />}
+              />
             </Switch>
             <Footer />
           </div>
