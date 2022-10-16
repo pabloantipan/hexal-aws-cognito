@@ -35,14 +35,14 @@ class App extends Component {
     const authProps = {
       isAuthenticated: this.state.isAuthenticated,
       user: this.state.user,
-      setAuthStatus: this.state.setAuthStatus,
-      setUser: this.state.setUser,
+      setAuthStatus: this.setAuthStatus,
+      setUser: this.setUser,
     };
     return (
       <div className="App">
         <Router>
           <div>
-            <Navbar authProps={authProps} />
+            <Navbar auth={authProps} />
             <Switch>
               <Route
                 exact
@@ -52,31 +52,26 @@ class App extends Component {
               <Route
                 exact
                 path="/products"
-                component={Products}
                 render={(props) => <Products {...props} auth={authProps} />}
               />
               <Route
                 exact
                 path="/admin"
-                component={ProductAdmin}
                 render={(props) => <ProductAdmin {...props} auth={authProps} />}
               />
               <Route
                 exact
                 path="/login"
-                component={LogIn}
                 render={(props) => <LogIn {...props} auth={authProps} />}
               />
               <Route
                 exact
                 path="/register"
-                component={Register}
                 render={(props) => <Register {...props} auth={authProps} />}
               />
               <Route
                 exact
                 path="/forgotpassword"
-                component={ForgotPassword}
                 render={(props) => (
                   <ForgotPassword {...props} auth={authProps} />
                 )}
@@ -84,7 +79,6 @@ class App extends Component {
               <Route
                 exact
                 path="/forgotpasswordverification"
-                component={ForgotPasswordVerification}
                 render={(props) => (
                   <ForgotPasswordVerification {...props} auth={authProps} />
                 )}
@@ -92,7 +86,6 @@ class App extends Component {
               <Route
                 exact
                 path="/changepassword"
-                component={ChangePassword}
                 render={(props) => (
                   <ChangePassword {...props} auth={authProps} />
                 )}
@@ -100,7 +93,6 @@ class App extends Component {
               <Route
                 exact
                 path="/changepasswordconfirmation"
-                component={ChangePasswordConfirm}
                 render={(props) => (
                   <ChangePasswordConfirm {...props} auth={authProps} />
                 )}
@@ -108,7 +100,6 @@ class App extends Component {
               <Route
                 exact
                 path="/welcome"
-                component={Welcome}
                 render={(props) => <Welcome {...props} auth={authProps} />}
               />
             </Switch>
