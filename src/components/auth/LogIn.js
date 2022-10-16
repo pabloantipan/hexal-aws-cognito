@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import FormErrors from "../FormErrors";
 import Validate from "../utility/FormValidation";
+import { Auth } from "aws-amplify";
 
 class LogIn extends Component {
   state = {
@@ -8,20 +9,20 @@ class LogIn extends Component {
     password: "",
     errors: {
       cognito: null,
-      blankfield: false
-    }
+      blankfield: false,
+    },
   };
 
   clearErrorState = () => {
     this.setState({
       errors: {
         cognito: null,
-        blankfield: false
-      }
+        blankfield: false,
+      },
     });
   };
 
-  handleSubmit = async event => {
+  handleSubmit = async (event) => {
     event.preventDefault();
 
     // Form validation
@@ -29,16 +30,32 @@ class LogIn extends Component {
     const error = Validate(event, this.state);
     if (error) {
       this.setState({
-        errors: { ...this.state.errors, ...error }
+        errors: { ...this.state.errors, ...error },
       });
     }
 
     // AWS Cognito integration here
+    // const { username, email, password } = this.state;
+    await Auth.signIn(this.state.username, this.state.password)
+      .then((response) => {
+        this.props.history.push("/");
+        console.log(response);
+      })
+      .catch((error) => {
+        let err = null;
+        !error.message ? (err = { message: error }) : (err = error);
+        this.setState({
+          errors: {
+            ...this.state.errors,
+            cognito: err,
+          },
+        });
+      });
   };
 
-  onInputChange = event => {
+  onInputChange = (event) => {
     this.setState({
-      [event.target.id]: event.target.value
+      [event.target.id]: event.target.value,
     });
     document.getElementById(event.target.id).classList.remove("is-danger");
   };
@@ -53,8 +70,8 @@ class LogIn extends Component {
           <form onSubmit={this.handleSubmit}>
             <div className="field">
               <p className="control">
-                <input 
-                  className="input" 
+                <input
+                  className="input"
                   type="text"
                   id="username"
                   aria-describedby="usernameHelp"
@@ -66,8 +83,8 @@ class LogIn extends Component {
             </div>
             <div className="field">
               <p className="control has-icons-left">
-                <input 
-                  className="input" 
+                <input
+                  className="input"
                   type="password"
                   id="password"
                   placeholder="Password"
@@ -86,9 +103,7 @@ class LogIn extends Component {
             </div>
             <div className="field">
               <p className="control">
-                <button className="button is-success">
-                  Login
-                </button>
+                <button className="button is-success">Login</button>
               </p>
             </div>
           </form>
